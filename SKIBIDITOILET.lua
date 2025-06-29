@@ -17,7 +17,7 @@ local Window = Rayfield:CreateWindow({
 
 -- TABS
 local PlayerTab = Window:CreateTab("Player", 10723395215)
-local AdminTab = Window:CreateTab("Admin", "terminal")
+local AdminTab = Window:CreateTab("Scripts", "terminal")
 local AnimTab = Window:CreateTab("Animations", 10734905958)
 local CombatTab = Window:CreateTab("Combat", 10734944200)
 local SettingsTab = Window:CreateTab("Settings", "settings")
@@ -79,7 +79,7 @@ AdminTab:CreateButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
     end
 })
-
+AdminTab:CreateLabel("Best Scripts", rbxassetid://10709797006)
 -- ANIMATIONS TAB
 local animURL = "https://raw.githubusercontent.com/Mautiku/Mautiku/refs/heads/main/AnimationCHANGER.txt"
 local anims = {"Ninja", "Robot", "Levitate", "Ghost", "Toy", "Stylish", "Bubbly"}

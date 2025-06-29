@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window = Rayfield:CreateWindow({
-    Name = "Russain hub",
+    Name = "Roulette Hub",
     Icon = 83085647545420,
     LoadingTitle = "Shadow Hub",
     LoadingSubtitle = "by @fevber",

@@ -3,42 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette-Hub | Russian Roulette Next Generation</title>
+    <title>Roulette-Hub | Roulette Next Generation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        }
-        .script-box {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .script-box::-webkit-scrollbar {
-            width: 8px;
-        }
-        .script-box::-webkit-scrollbar-track {
-            background: #1a1a2e;
-        }
-        .script-box::-webkit-scrollbar-thumb {
-            background: #4f46e5;
-            border-radius: 4px;
-        }
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
-            }
-        }
-    </style>
 </head>
 <body class="gradient-bg min-h-screen text-gray-100 font-sans flex flex-col">
     <!-- Header -->
@@ -65,11 +32,11 @@
             <div class="mb-6">
                 <h2 class="text-xl font-semibold text-purple-300 mb-2">Script Features:</h2>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Realistic Russian Roulette</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Multiple Game Modes</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Customizable Settings</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Anti-Cheat Bypass</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Smooth Animations</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Best functions</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> 24/7 support on discord</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> No malware</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> We listen to ur recommendations</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> enjoy</li>
                     <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Frequent Updates</li>
                 </ul>
             </div>
@@ -84,44 +51,8 @@
                     <pre class="whitespace-pre-wrap text-gray-300" id="script-content">
 -- Roulette-Hub | Russian Roulette Next Generation
 -- Version: 2.4.1
--- Last Updated: 2023-11-15
-
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local UserInputService = game:GetService("UserInputService")
-
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-
--- Configuration
-local CONFIG = {
-    ChamberSize = 6,
-    BulletPosition = math.random(1, 6),
-    AnimationSpeed = 1.2,
-    SoundEffects = true,
-    VisualEffects = true,
-    AntiKick = true
-}
-
--- UI Setup
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "RouletteHubUI"
-screenGui.Parent = player.PlayerGui
-
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 300, 0, 400)
-mainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)
-mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 46)
-mainFrame.BorderSizePixel = 0
-mainFrame.Parent = screenGui
-
--- [Rest of the script would be here...]
--- This is a truncated version for display purposes
--- Full script would be much longer with all features implemented
-
-print("Roulette-Hub loaded successfully! Version 2.4.1")
+-- Last Updated: D06-M07-Y25
+script
                     </pre>
                 </div>
             </div>
@@ -178,40 +109,3 @@ print("Roulette-Hub loaded successfully! Version 2.4.1")
             </div>
         </div>
     </footer>
-
-    <script>
-        document.getElementById('copy-btn').addEventListener('click', function() {
-            const scriptContent = document.getElementById('script-content').textContent;
-            navigator.clipboard.writeText(scriptContent).then(() => {
-                const originalText = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check mr-2"></i><span>Copied!</span>';
-                this.classList.remove('bg-purple-600', 'hover:bg-purple-700');
-                this.classList.add('bg-green-600', 'hover:bg-green-700');
-                this.classList.remove('pulse-animation');
-                
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.classList.add('bg-purple-600', 'hover:bg-purple-700', 'pulse-animation');
-                    this.classList.remove('bg-green-600', 'hover:bg-green-700');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Failed to copy script. Please try again or copy manually.');
-            });
-        });
-
-        // Update checker simulation
-        document.querySelectorAll('button')[1].addEventListener('click', function() {
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i><span>Checking...</span>';
-            
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-check-circle mr-2"></i><span>Latest Version!</span>';
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                }, 2000);
-            }, 1500);
-        });
-    </script>
-</body>
-  </html>

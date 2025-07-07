@@ -1,169 +1,277 @@
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+-- Load Rayfield UI Library
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
+-- Create main window
 local Window = Rayfield:CreateWindow({
     Name = "Roulette Hub",
-    Icon = 83085647545420,
-    LoadingTitle = "Shadow Hub",
-    LoadingSubtitle = "by @fevber",
-    ShowText = "by @odintheodin",
-    Theme = "Serenity",
-    ToggleUIKeybind = "K",
+    Icon = "star",
+    LoadingTitle = "",
+    LoadingSubtitle = "RouletteHub",
     ConfigurationSaving = {
         Enabled = true,
-        FileName = "TIXU"
+        FolderName = "Roulette-Hub-file",
+        FileName = "Config"
     },
-    KeySystem = false
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    Theme = "DarkBlue"
 })
 
--- TABS
-local PlayerTab = Window:CreateTab("Player", 10723395215)
-local AdminTab = Window:CreateTab("Scripts", "terminal")
-local AnimTab = Window:CreateTab("Animations", 10734905958)
-local CombatTab = Window:CreateTab("Combat", 10734944200)
-local SettingsTab = Window:CreateTab("Settings", "settings")
+-- Hub Start Tab (Welcome/Launcher)
+local HubStartTab = Window:CreateTab("Hub Start", "home")
+HubStartTab:CreateParagraph({
+    Title = "Welcome!",
+    Content = "Thanks for using Roulette-Hub Script Hub by .\n\nUse the tabs above to navigate scripts."
+})
+HubStartTab:CreateParagraph({
+    Title = "Update Notes",
+    Content = "The hub will be updated weekly with new scripts, improvements, and fixes.\nCheck back often for the latest updates!"
+})
+HubStartTab:CreateParagraph({
+    Title = "Credits",
+    Content = "The owner is odintheodin and the devloper is fevber.\nside note: i love yall enjoy💗!"
+})
+HubStartTab:CreateButton({
+    Name = "Check Hub Status",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Roulette-Hub  Hub",
+            Content = "Hub has been loaded. enjoy!💗",
+            Duration = 5
+        })
+    end
+})
+HubStartTab:CreateLabel("Enjoy using the hub! 🚀")
 
--- SERVICES
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
-local LocalPlayer = Players.LocalPlayer
-local Camera = workspace.CurrentCamera
+------------------------------------------------------------
+-- Admin Tab
+local IYTab = "https://raw.githubusercontent.com/Mautiku/Mautiku/refs/heads/main/AnimationCHANGER.txt"
+    local anims = {"Ninja","Robot","Levitate","Ghost","Toy","Stylish","Bubbly"}
+    for _, name in ipairs(anims) do
+        IYTab:CreateButton({Name="Animation: "..name, Callback=function()
+            getgenv().pack = name
+            loadstring(game:HttpGet(animURL))()
+            Rayfield:Notify({Title="Animation",Content=name.." loaded. Use /e stop to reset",Duration=4})
+        end})
+    end
 
--- PLAYER TAB
-PlayerTab:CreateLabel("Movement Settings", 10723395215)
-local WalkSpeed, JumpPower, CFrameSpeed = 16, 50, 0.2
-local wsEnabled, jpEnabled, cframeEnabled, noclipEnabled = true, false, false, false
 
-PlayerTab:CreateSlider({Name = "WalkSpeed", Range = {-100, 200}, Increment = 1, CurrentValue = WalkSpeed, Callback = function(v) WalkSpeed = v end})
-PlayerTab:CreateToggle({Name = "Enable WalkSpeed", CurrentValue = true, Callback = function(v) wsEnabled = v end})
+local VisualTab = Window:CreateTab("Visual Utilities", "eye")
 
-PlayerTab:CreateSlider({Name = "JumpPower", Range = {0, 300}, Increment = 5, CurrentValue = JumpPower, Callback = function(v) JumpPower = v end})
-PlayerTab:CreateToggle({Name = "Enable JumpPower", CurrentValue = false, Callback = function(v) jpEnabled = v end})
+local player = game.Players.LocalPlayer
 
-PlayerTab:CreateLabel("CFrame Speed", "rewind")
-PlayerTab:CreateSlider({Name = "CFrame Speed", Range = {0.1, 3}, Increment = 0.1, CurrentValue = CFrameSpeed, Callback = function(v) CFrameSpeed = v end})
-PlayerTab:CreateToggle({Name = "Enable CFrame Speed", CurrentValue = false, Callback = function(v) cframeEnabled = v end})
+local cachedHead = nil
+local cachedRightLegParts = {}
 
-PlayerTab:CreateToggle({Name = "Noclip", CurrentValue = false, Callback = function(v) noclipEnabled = v end})
-
-RunService.Heartbeat:Connect(function()
-    local char = LocalPlayer.Character
-    if char then
-        local hum = char:FindFirstChildWhichIsA("Humanoid")
-        if hum then
-            hum.WalkSpeed = wsEnabled and WalkSpeed or 16
-            hum.JumpPower = jpEnabled and JumpPower or 50
-        end
-        if cframeEnabled and hum and hum.MoveDirection.Magnitude > 0 then
-            char:TranslateBy(hum.MoveDirection * CFrameSpeed)
-        end
-        if noclipEnabled then
-            for _, v in pairs(char:GetDescendants()) do
-                if v:IsA("BasePart") then v.CanCollide = false end
+VisualTab:CreateButton({
+    Name = "Toggle Headless",
+    Callback = function()
+        local char = player.Character or player.CharacterAdded:Wait()
+        if cachedHead then
+            cachedHead.Parent = char
+            cachedHead = nil
+        else
+            local head = char:FindFirstChild("Head")
+            if head then
+                cachedHead = head:Clone()
+                head:Destroy()
             end
         end
     end
-end)
+})
 
--- ADMIN TAB
-AdminTab:CreateButton({
-    Name = "Infinite Yield",
+VisualTab:CreateButton({
+    Name = "Toggle Korblox",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+        local char = player.Character or player.CharacterAdded:Wait()
+
+        if #cachedRightLegParts > 0 then
+            for _, part in ipairs(cachedRightLegParts) do
+                part.Parent = char
+            end
+            cachedRightLegParts = {}
+        else
+            local partsToRemove = {"Right Leg", "RightLowerLeg", "RightUpperLeg", "RightFoot"}
+            for _, partName in ipairs(partsToRemove) do
+                local part = char:FindFirstChild(partName)
+                if part then
+                    table.insert(cachedRightLegParts, part:Clone())
+                    part:Destroy()
+                end
+            end
+        end
     end
 })
 
-AdminTab:CreateButton({
-    Name = "Nameless Admin",
+local player = game.Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+local rainbowBlock
+local rainbowConnection
+local rainbowEnabled = false
+
+VisualTab:CreateButton({
+    Name = "bypass inf jump",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ltseverydayyou/Nameless-Admin/main/Source.lua"))()
+        local char = player.Character or player.CharacterAdded:Wait()
+        local hrp = char:FindFirstChild("HumanoidRootPart")
+        if not hrp then return end
+
+        if rainbowEnabled then
+            if rainbowBlock then
+                rainbowBlock:Destroy()
+                rainbowBlock = nil
+            end
+            if rainbowConnection then
+                rainbowConnection:Disconnect()
+                rainbowConnection = nil
+            end
+            rainbowEnabled = false
+        else
+            rainbowBlock = Instance.new("Part")
+            rainbowBlock.Size = Vector3.new(4, 0.5, 4)
+            rainbowBlock.Anchored = true
+            rainbowBlock.CanCollide = false
+            rainbowBlock.Transparency = 0.3
+            rainbowBlock.Material = Enum.Material.Neon
+            rainbowBlock.Parent = workspace
+
+            local hue = 0
+            rainbowConnection = RunService.Heartbeat:Connect(function()
+                if not hrp or not rainbowBlock then return end
+                local pos = hrp.Position - Vector3.new(0, hrp.Size.Y/2 + rainbowBlock.Size.Y/2 + 0.1, 0)
+                rainbowBlock.CFrame = CFrame.new(pos)
+
+                hue = (hue + 0.01) % 1
+                rainbowBlock.Color = Color3.fromHSV(hue, 1, 1)
+            end)
+            rainbowEnabled = true
+        end
     end
 })
-AdminTab:CreateLabel("Best Scripts", rbxassetid://10709797006)
--- ANIMATIONS TAB
-local animURL = "https://raw.githubusercontent.com/Mautiku/Mautiku/refs/heads/main/AnimationCHANGER.txt"
-local anims = {"Ninja", "Robot", "Levitate", "Ghost", "Toy", "Stylish", "Bubbly"}
-for _, anim in ipairs(anims) do
-    AnimTab:CreateButton({
-        Name = "Animation: " .. anim,
-        Callback = function()
-            getgenv().pack = anim
-            loadstring(game:HttpGet(animURL))()
+
+-- Debug Tools Tab
+local DebugTab = Window:CreateTab("Debug Tools", "bug")
+DebugTab:CreateButton({
+    Name = "Remote Event Viewer",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/D3f4ultscript/scripts/refs/heads/main/Remotes.lua"))()
+    end
+})
+DebugTab:CreateButton({
+    Name = "UNC Environment Checker",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/unified-naming-convention/NamingStandard/refs/heads/main/UNCCheckEnv.lua"))()
+    end
+})
+DebugTab:CreateButton({
+    Name = "Dex Explorer",
+    Callback = function()
+        loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+    end
+})
+
+-- Trolling Scripts Tab
+local TrollingTab = Window:CreateTab("Trolling Scripts", "smile")
+TrollingTab:CreateButton({
+    Name = "FE 18+ Script",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/FWwdST5Y"))()
+    end
+})
+TrollingTab:CreateButton({
+    Name = "OpFinality",
+    Callback = function()
+        loadstring(game:HttpGet("https://gist.githubusercontent.com/Coolie-tech/2425d472c253ef3b3d49ee74695f9cc3/raw/64971f032b6af3023305c57dba0810073a6d5a6b/OP%2520Finality%2520Trolling%2520GUI"))()
+    end
+})
+TrollingTab:CreateButton({
+    Name = "SkyHub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub/main/FE%20Trolling%20GUI.luau"))()
+    end
+})
+
+-- AIMBOT Tab
+local AimTab = Window:CreateTab("AIMBOT", "target")
+_G.AimbotLoaded = false
+AimTab:CreateButton({
+    Name = "Load Aimbot/ESP Script",
+    Callback = function()
+        if not _G.AimbotLoaded then
+            loadstring(game:HttpGet("https://pastebin.com/raw/ha5p8Rzk", true))()
+            _G.AimbotLoaded = true
             Rayfield:Notify({
-                Title = "Animation Loaded",
-                Content = "/e stop to reset.",
+                Title = "Aimbot Loaded",
+                Content = "Aimbot/ESP script has been successfully loaded!",
+                Duration = 5
+            })
+        else
+            Rayfield:Notify({
+                Title = "Already Loaded",
+                Content = "The Aimbot/ESP script is already loaded.",
                 Duration = 5
             })
         end
-    })
-end
-
--- COMBAT TAB
-CombatTab:CreateLabel("Combat Tools", "crosshair")
-
--- ESP
-local espEnabled = false
-local espTable = {}
-CombatTab:CreateToggle({
-    Name = "Enable ESP",
+    end
+})
+AimTab:CreateToggle({
+    Name = "Enable Aimbot (Hold RMB to Lock)",
     CurrentValue = false,
-    Callback = function(state)
-        espEnabled = state
-        if state then
-            for _, plr in pairs(Players:GetPlayers()) do
-                if plr ~= LocalPlayer and plr.Character then
-                    local highlight = Instance.new("Highlight")
-                    highlight.Adornee = plr.Character
-                    highlight.FillColor = Color3.fromRGB(0,255,0)
-                    highlight.Parent = plr.Character
-                    espTable[plr] = highlight
-                end
-            end
-        else
-            for _, h in pairs(espTable) do h:Destroy() end
-            espTable = {}
-        end
+    Callback = function(Value)
+        _G.AimbotEnabled = Value
     end
 })
-
--- Tween TP
-local tpTweenSpeed = 0.2
-local tpEnabled = false
-CombatTab:CreateSlider({
-    Name = "Tween TP Speed",
-    Range = {0.1, 1},
-    Increment = 0.05,
-    CurrentValue = tpTweenSpeed,
-    Callback = function(v) tpTweenSpeed = v end
-})
-CombatTab:CreateToggle({
-    Name = "Enable Click TP",
+AimTab:CreateToggle({
+    Name = "Enable ESP (Box + Tracer + Team Check)",
     CurrentValue = false,
-    Callback = function(state)
-        tpEnabled = state
+    Callback = function(Value)
+        _G.ESPEnabled = Value
+    end
+})
+AimTab:CreateSlider({
+    Name = "Aim FOV",
+    Range = {10, 360},
+    Increment = 5,
+    Suffix = "°",
+    CurrentValue = 90,
+    Callback = function(Value)
+        _G.AimFOV = Value
     end
 })
 
-local Mouse = LocalPlayer:GetMouse()
-Mouse.Button1Down:Connect(function()
-    if tpEnabled and LocalPlayer.Character then
-        local hrp = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-        if hrp then
-            local goal = CFrame.new(Mouse.Hit.Position + Vector3.new(0, 3, 0))
-            TweenService:Create(hrp, TweenInfo.new(tpTweenSpeed), {CFrame = goal}):Play()
-        end
+-- GameHub Tab
+local GameHubTab = Window:CreateTab("GameHub", "gamepad")
+GameHubTab:CreateButton({
+    Name = "CosmicHub (Fling Things And People)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ExolKaddinx/deobfuscated/refs/heads/main/cosmichub-new.lua", true))()
     end
-end)
-
--- SETTINGS TAB
-local currentTheme = "Serenity"
-SettingsTab:CreateDropdown({
-    Name = "Theme",
-    Options = {"Serenity", "Dark", "Amethyst", "Aqua"},
-    CurrentOption = currentTheme,
-    Callback = function(opt)
-        Rayfield:Destroy()
-        wait(0.5)
-        loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+})
+GameHubTab:CreateButton({
+    Name = "Solara Hub V3 (Multiple Game Support)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/samuraa1/Solara-Hub/refs/heads/main/Solara%20Hub.lua"))()
+    end
+})
+GameHubTab:CreateButton({
+    Name = "PrizzLife (Prison Life)",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/devguy100/PrizzLife/main/pladmin.lua'))()
+    end
+})
+GameHubTab:CreateButton({
+    Name = "ZeroHub (Multiple Game Support)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dnezero/zerohub/refs/heads/main/main.lua"))()
+    end
+})
+GameHubTab:CreateButton({
+    Name = "GhostHub (Multiple Game Support)",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub'))()
     end
 })

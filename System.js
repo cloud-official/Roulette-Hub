@@ -1,32 +1,48 @@
-        document.getElementById('copy-btn').addEventListener('click', function() {
-            const scriptContent = document.getElementById('script-content').textContent;
-            navigator.clipboard.writeText(scriptContent).then(() => {
-                const originalText = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check mr-2"></i><span>Copied!</span>';
-                this.classList.remove('bg-purple-600', 'hover:bg-purple-700');
-                this.classList.add('bg-green-600', 'hover:bg-green-700');
-                this.classList.remove('pulse-animation');
-                
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.classList.add('bg-purple-600', 'hover:bg-purple-700', 'pulse-animation');
-                    this.classList.remove('bg-green-600', 'hover:bg-green-700');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Failed to copy script. Please try again or copy manually.');
-            });
+// All code is wrapped in DOMContentLoaded to ensure elements exist
+document.addEventListener('DOMContentLoaded', function() {
+    // Copy script to clipboard
+    const copyBtn = document.getElementById('copy-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            const scriptContentElem = document.getElementById('script-content');
+            if (!scriptContentElem) return;
+            const scriptContent = scriptContentElem.textContent;
+            const btn = this;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(scriptContent).then(() => {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check mr-2"></i><span>Copied!</span>';
+                    btn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    btn.classList.remove('pulse-animation');
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.add('bg-purple-600', 'hover:bg-purple-700', 'pulse-animation');
+                        btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy script. Please try again or copy manually.');
+                });
+            } else {
+                alert('Clipboard API not supported. Please copy manually.');
+            }
         });
+    }
 
-        // Update checker simulation
-        document.querySelectorAll('button')[1].addEventListener('click', function() {
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i><span>Checking...</span>';
-            
+    // Update checker simulation
+    const updateBtn = document.getElementById('update-btn');
+    if (updateBtn) {
+        updateBtn.addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i><span>Checking...</span>';
             setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-check-circle mr-2"></i><span>Latest Version!</span>';
+                btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i><span>Latest Version!</span>';
                 setTimeout(() => {
-                    this.innerHTML = originalText;
+                    btn.innerHTML = originalText;
                 }, 2000);
             }, 1500);
         });
+    }
+});

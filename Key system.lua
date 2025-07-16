@@ -37,7 +37,7 @@ local function unlock(level, usedKey)
     if level == "NIGGA SYSTEM2" then
         print("GUI ETC BUT BETTER")
     elseif level == "USER" then
-        local code = game:HttpGet("https://pastefy.app/F1GTyteq/raw")
+        local code = game:HttpGet("https://raw.githubusercontent.com/cloud-official/Roulette-Hub/refs/heads/main/SKIBIDITOILET.lua")
 local func = loadstring(code)
 func()
     end

@@ -3,119 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roulette-Hub | Roulette Next Generation</title>
+    <title>Roulette-Hub | Premium Roblox Script Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link your Style.css here -->
     <link rel="stylesheet" href="Style.css">
 </head>
-<body class="gradient-bg min-h-screen text-gray-100 font-sans flex flex-col">
-    <!-- Header -->
-    <header class="py-6 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto flex flex-col items-center">
-            <div class="flex items-center mb-4">
-                <i class="fas fa-dice text-4xl text-purple-400 mr-3"></i>
-                <h1 class="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">
-                    Roulette-Hub
-                </h1>
-            </div>
-            <p class="text-center text-purple-200 mb-2">Russian Roulette - Next Generation</p>
-            <div class="flex items-center text-yellow-400 text-sm">
-                <i class="fas fa-bolt mr-1"></i>
-                <span>Frequent Updates</span>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="w-full py-4 px-6 flex justify-between items-center border-b border-gray-800 sticky top-0 z-50 bg-black bg-opacity-90">
+        <div class="flex items-center space-x-3">
+            <img src="https://tr.rbxcdn.com/180DAY-6655c101f9a863ba1b21975afda8dcc8/150/150/Decal/Webp/noFilter" alt="Roulette-Hub Logo" class="w-10 h-10 rounded-full">
+            <h1 class="text-xl font-bold gradient-text">Roulette-Hub</h1>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+            <a href="#home" class="hover:text-red-400 transition">Home</a>
+            <a href="#features" class="hover:text-red-400 transition">Features</a>
+            <a href="#scripts" class="hover:text-red-400 transition">Scripts</a>
+            <a href="#stats" class="hover:text-red-400 transition">Stats</a>
+            <a href="#discord" class="hover:text-red-400 transition">Community</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-2xl text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="flex flex-col items-center space-y-8 text-xl">
+                <a href="#home" class="hover:text-red-400 transition" onclick="closeMobileMenu()">Home</a>
+                <a href="#features" class="hover:text-red-400 transition" onclick="closeMobileMenu()">Features</a>
+                <a href="#scripts" class="hover:text-red-400 transition" onclick="closeMobileMenu()">Scripts</a>
+                <a href="#stats" class="hover:text-red-400 transition" onclick="closeMobileMenu()">Stats</a>
+                <a href="#discord" class="hover:text-red-400 transition" onclick="closeMobileMenu()">Community</a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-4xl mx-auto w-full">
-        <div class="bg-gray-900 bg-opacity-70 rounded-xl p-6 shadow-xl border border-purple-900">
-            <!-- Script Info -->
-            <div class="mb-6">
-                <h2 class="text-xl font-semibold text-purple-300 mb-2">Script Features:</h2>
-                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Best functions</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> 24/7 support on discord</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> No malware</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> We listen to ur recommendations</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> enjoy</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-green-400 mr-2"></i> Frequent Updates</li>
-                </ul>
+    <!-- Hero Section -->
+    <section id="home" class="container mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">
+                <div class="typewriter">Roulette-Hub <span class="gradient-text">v0.3</span></div>
+            </h2>
+            <p class="text-gray-400 mb-8 text-lg">The most advanced Russian Roulette script hub for Roblox. Experience the thrill of chance with premium features.</p>
+            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                <a href="#scripts" class="bg-gradient-to-r from-red-500 to-yellow-500 text-white px-6 py-3 rounded-lg font-medium btn-glow transition text-center">Get Key</a>
+                <a href="#features" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition text-center">View Features</a>
             </div>
-
-            <!-- Script Box -->
-            <div class="mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-xl font-semibold text-purple-300">Script:</h2>
-                    <span class="text-xs bg-purple-900 bg-opacity-50 px-2 py-1 rounded">1.0.0</span>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+            <div class="preview-container">
+                <img src="https://raw.githubusercontent.com/cloud-official/Roulette-bot/refs/heads/main/Screenshot_20250717_113705_Roblox%20(2).jpg" 
+                     alt="Roulette-Hub Preview" 
+                     class="rounded-xl max-w-full h-auto preview-image">
+                <div class="preview-overlay">
+                    <button class="bg-gradient-to-r from-red-500 to-yellow-500 text-white px-6 py-3 rounded-lg font-medium btn-glow transition animate-pulse">
+                        <i class="fas fa-play mr-2"></i> Preview
+                    </button>
                 </div>
-                <div class="script-box bg-gray-800 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-                    <pre class="whitespace-pre-wrap text-gray-300" id="script-content">
--- Roulette-Hub | Russian Roulette Next Generation
--- Version: 1.0.0
--- Last Updated: D06-M07-Y25 script
+            </div>
+        </div>
+    </section>
 
-local code = game:HttpGet("https://pastebin.com/raw/J953R12K")
-local func = loadstring(code)
-func()
-                    </pre>
+    <!-- Stats Section -->
+    <section id="stats" class="py-16 bg-gradient-to-b from-gray-900 to-black">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stats-card card-glass p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2" id="user-count">0</div>
+                    <p class="text-gray-400">Active Users</p>
+                </div>
+                <div class="stats-card card-glass p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2" id="game-count">0</div>
+                    <p class="text-gray-400">Supported Games</p>
+                </div>
+                <div class="stats-card card-glass p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2" id="update-count">0</div>
+                    <p class="text-gray-400">Monthly Updates</p>
+                </div>
+                <div class="stats-card card-glass p-6 rounded-xl text-center">
+                    <div class="text-4xl font-bold gradient-text mb-2" id="uptime-count">0%</div>
+                    <p class="text-gray-400">Uptime</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Copy Button and Update Button -->
-            <div class="flex flex-col sm:flex-row gap-4">
-                <button id="copy-btn" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center pulse-animation">
-                    <i class="fas fa-copy mr-2"></i>
-                    <span>Copy Script</span>
-                </button>
-                <button id="update-btn" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
-                    <i class="fas fa-sync-alt mr-2"></i>
-                    <span>Check Updates</span>
-                </button>
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text">Premium Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card-glass p-6 rounded-xl slide-in" style="animation-delay: 0.1s">
+                    <div class="text-red-500 text-3xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-400">Optimized scripts that load instantly and run smoothly without lag, even on low-end devices.</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl slide-in" style="animation-delay: 0.2s">
+                    <div class="text-yellow-500 text-3xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Undetectable</h3>
+                    <p class="text-gray-400">Advanced anti-detection methods with obfuscation and encryption keep you safe while gaming.</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl slide-in" style="animation-delay: 0.3s">
+                    <div class="text-blue-500 text-3xl mb-4">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Frequent Updates</h3>
+                    <p class="text-gray-400">Daily updates with new features, game compatibility and patched exploits.</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl slide-in" style="animation-delay: 0.4s">
+                    <div class="text-purple-500 text-3xl mb-4">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Customization</h3>
+                    <p class="text-gray-400">Fully customizable UI with themes, animations and personal preferences.</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl slide-in" style="animation-delay: 0.5s">
+                    <div class="text-green-500 text-3xl mb-4">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+                    <p class="text-gray-400">Dedicated support team ready to help you with any issues at any time.</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl slide-in" style="animation-delay: 0.6s">
+                    <div class="text-pink-500 text-3xl mb-4">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Premium Only</h3>
+                    <p class="text-gray-400">Exclusive features and scripts available only to premium members.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Instructions -->
-        <div class="mt-8 bg-gray-900 bg-opacity-70 rounded-xl p-6 shadow-xl border border-blue-900">
-            <h2 class="text-xl font-semibold text-blue-300 mb-4">How to Use:</h2>
-            <ol class="list-decimal list-inside space-y-3 text-sm">
-                <li class="flex items-start">
-                    <span class="mr-2">1.</span>
-                    <span>Copy the script above by clicking the "Copy Script" button</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="mr-2">2.</span>
-                    <span>Open your Roblox executor (Delta, Krnl, Fluxus, etc.)</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="mr-2">3.</span>
-                    <span>Paste the script into the executor and run it</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="mr-2">4.</span>
-                    <span>Join a game in Roblox its fe anyway</span>
-                </li>
-                <li class="flex items-start">
-                    <span class="mr-2">5.</span>
-                    <span>Enjoy!! - Roulette team~</span>
-                </li>
-            </ol>
+    <!-- Script Section -->
+    <section id="scripts" class="py-20 bg-gradient-to-b from-black to-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text">Get The Script</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card-glass p-6 rounded-xl mb-8">
+                    <h3 class="text-xl font-bold mb-4">Russian Roulette Script</h3>
+                    <div class="bg-gray-900 p-4 rounded-lg mb-4 relative">
+                        <pre class="text-gray-300 overflow-x-auto"><code id="script-code">local code = game:HttpGet("https://pastebin.com/raw/J953R12K") local func = loadstring(code) func()</code></pre>
+                        <button id="copy-btn" class="copy-btn absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            <i class="fas fa-copy mr-1"></i> Copy
+                        </button>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <div class="flex items-center">
+                            <span class="text-gray-400 mr-2">Key:</span>
+                            <span class="text-white font-mono">RUSSIAN-ROULETTE-KEY(00999286124)</span>
+                            <button id="copy-key-btn" class="copy-btn ml-auto bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                                <i class="fas fa-copy mr-1"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-glass p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4">How to Use</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li>Copy the script above</li>
+                        <li>Open your preferred Roblox executor</li>
+                        <li>Paste the script into the executor</li>
+                        <li>Execute the script and enjoy!</li>
+                        <li>Enter the key when prompted</li>
+                    </ol>
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">Supported Executors:</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Synapse X</span>
+                            <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Script-Ware</span>
+                            <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Krnl</span>
+                            <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Fluxus</span>
+                            <span class="bg-gray-800 px-3 py-1 rounded-full text-sm">Electron</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Discord Section -->
+    <section id="discord" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text">Join Our Community</h2>
+            <div class="max-w-md mx-auto">
+                <a href="https://discord.gg/yourdiscordlink" target="_blank" class="block">
+                    <div class="card-glass p-6 rounded-xl flex items-center space-x-4 discord-card transition cursor-pointer">
+                        <div class="bg-indigo-600 p-3 rounded-full">
+                            <i class="fab fa-discord text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Roulette-Hub Discord</h3>
+                            <p class="text-gray-400">Join 15,000+ members for updates, support, and exclusive scripts!</p>
+                        </div>
+                        <div class="ml-auto text-gray-400">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h3>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <div class="card-glass p-5 rounded-lg">
+                        <div class="flex justify-between items-center cursor-pointer" onclick="toggleFAQ('faq1')">
+                            <h4 class="font-bold">Is this script safe to use?</h4>
+                            <i id="faq1-icon" class="fas fa-chevron-down transition-transform"></i>
+                        </div>
+                        <p id="faq1-content" class="text-gray-400 mt-2 hidden">Yes, our scripts use advanced obfuscation and anti-detection methods to ensure your account remains safe. However, we always recommend using an alt account when testing any scripts.</p>
+                    </div>
+                    <div class="card-glass p-5 rounded-lg">
+                        <div class="flex justify-between items-center cursor-pointer" onclick="toggleFAQ('faq2')">
+                            <h4 class="font-bold">How often is the script updated?</h4>
+                            <i id="faq2-icon" class="fas fa-chevron-down transition-transform"></i>
+                        </div>
+                        <p id="faq2-content" class="text-gray-400 mt-2 hidden">We update the script daily to ensure compatibility with the latest game updates and to add new features. All updates are free for premium members.</p>
+                    </div>
+                    <div class="card-glass p-5 rounded-lg">
+                        <div class="flex justify-between items-center cursor-pointer" onclick="toggleFAQ('faq3')">
+                            <h4 class="font-bold">Can I get banned for using this?</h4>
+                            <i id="faq3-icon" class="fas fa-chevron-down transition-transform"></i>
+                        </div>
+                        <p id="faq3-content" class="text-gray-400 mt-2 hidden">While we do everything possible to prevent detection, there is always some risk when using third-party scripts in Roblox. Use at your own discretion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="py-6 px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-400">
-        <div class="max-w-4xl mx-auto">
-            <p class="mb-2">© 2021 Roulette-Hub | Not affiliated with Roblox Corporation</p>
-            <div class="flex justify-center space-x-4">
-                <a href="#" class="hover:text-purple-300 transition-colors"><i class="fab fa-discord mr-1"></i> Discord</a>
-                <a href="#" class="hover:text-purple-300 transition-colors"><i class="fab fa-github mr-1"></i> GitHub</a>
-                <a href="#" class="hover:text-purple-300 transition-colors"><i class="fas fa-code mr-1"></i> More Scripts</a>
+    <footer class="py-8 border-t border-gray-800 bg-black bg-opacity-80">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                    <img src="https://tr.rbxcdn.com/180DAY-6655c101f9a863ba1b21975afda8dcc8/150/150/Decal/Webp/noFilter" alt="Roulette-Hub Logo" class="w-8 h-8 rounded-full">
+                    <h1 class="text-lg font-bold gradient-text">Roulette-Hub</h1>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://discord.gg/yourdiscordlink" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 text-center md:text-left text-gray-500 text-sm">
+                <p>© 2023 Roulette-Hub. All rights reserved. Not affiliated with Roblox Corporation.</p>
+                <p class="mt-1">This website is for educational purposes only.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Include your System.js at the end of body -->
-    <script src="System.js"></script>
+     
 </body>
 </html>

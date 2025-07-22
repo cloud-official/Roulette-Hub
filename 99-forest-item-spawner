@@ -1,0 +1,150 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+local itemsFolder = workspace:WaitForChild("Items")
+
+-- Create ScreenGui
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.Name = "ItemBringGui"
+gui.ResetOnSpawn = false
+
+-- Main frame
+local mainFrame = Instance.new("Frame", gui)
+mainFrame.Size = UDim2.new(0, 300, 0, 240)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -120)
+mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Name = "MainFrame"
+mainFrame.ClipsDescendants = true
+mainFrame.BackgroundTransparency = 0.05
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+
+-- UI Corner
+local corner = Instance.new("UICorner", mainFrame)
+corner.CornerRadius = UDim.new(0, 12)
+
+-- Title
+local title = Instance.new("TextLabel", mainFrame)
+title.Text = "Roulette hub"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+
+-- Search Box
+local searchBox = Instance.new("TextBox", mainFrame)
+searchBox.PlaceholderText = "Search item..."
+searchBox.Size = UDim2.new(1, -20, 0, 30)
+searchBox.Position = UDim2.new(0, 10, 0, 40)
+searchBox.Text = ""
+searchBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+searchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+searchBox.Font = Enum.Font.Gotham
+searchBox.TextSize = 14
+searchBox.BorderSizePixel = 0
+Instance.new("UICorner", searchBox).CornerRadius = UDim.new(0, 8)
+
+-- Dropdown (list)
+local dropdown = Instance.new("ScrollingFrame", mainFrame)
+dropdown.Size = UDim2.new(1, -20, 0, 80)
+dropdown.Position = UDim2.new(0, 10, 0, 80)
+dropdown.CanvasSize = UDim2.new(0, 0, 0, 0)
+dropdown.ScrollBarThickness = 6
+dropdown.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+dropdown.BorderSizePixel = 0
+Instance.new("UICorner", dropdown).CornerRadius = UDim.new(0, 8)
+
+local layout = Instance.new("UIListLayout", dropdown)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 4)
+
+-- Amount
+local amountBox = Instance.new("TextBox", mainFrame)
+amountBox.PlaceholderText = "Amount (e.g., 2)"
+amountBox.Text = ""
+amountBox.Size = UDim2.new(1, -20, 0, 30)
+amountBox.Position = UDim2.new(0, 10, 0, 170)
+amountBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+amountBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+amountBox.Font = Enum.Font.Gotham
+amountBox.TextSize = 14
+amountBox.BorderSizePixel = 0
+Instance.new("UICorner", amountBox).CornerRadius = UDim.new(0, 8)
+
+-- Bring button
+local bringBtn = Instance.new("TextButton", mainFrame)
+bringBtn.Text = "Bring Item"
+bringBtn.Size = UDim2.new(1, -20, 0, 30)
+bringBtn.Position = UDim2.new(0, 10, 0, 210)
+bringBtn.BackgroundColor3 = Color3.fromRGB(60, 130, 255)
+bringBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+bringBtn.Font = Enum.Font.GothamBold
+bringBtn.TextSize = 14
+bringBtn.BorderSizePixel = 0
+Instance.new("UICorner", bringBtn).CornerRadius = UDim.new(0, 8)
+
+-- Item population
+local function updateDropdown(filter)
+	dropdown:ClearAllChildren()
+	Instance.new("UIListLayout", dropdown).SortOrder = Enum.SortOrder.LayoutOrder
+
+	for _, item in pairs(itemsFolder:GetChildren()) do
+		if item:IsA("Tool") or item:IsA("Accessory") or item:IsA("Hat") or item:IsA("BasePart") or item:IsA("Model") then
+			if not filter or string.find(item.Name:lower(), filter:lower()) then
+				local button = Instance.new("TextButton")
+				button.Size = UDim2.new(1, -4, 0, 28)
+				button.Text = item.Name
+				button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+				button.TextColor3 = Color3.fromRGB(255, 255, 255)
+				button.Font = Enum.Font.Gotham
+				button.TextSize = 14
+				button.BorderSizePixel = 0
+				Instance.new("UICorner", button).CornerRadius = UDim.new(0, 6)
+				button.Parent = dropdown
+
+				button.MouseButton1Click:Connect(function()
+					searchBox.Text = item.Name
+					updateDropdown(item.Name)
+				end)
+			end
+		end
+	end
+
+	task.wait()
+	dropdown.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
+end
+
+searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+	updateDropdown(searchBox.Text)
+end)
+
+-- Bring item logic
+bringBtn.MouseButton1Click:Connect(function()
+	local amount = tonumber(amountBox.Text) or 1
+	local selectedName = searchBox.Text
+
+	local grabbed = 0
+
+	for _, item in pairs(itemsFolder:GetChildren()) do
+		if item.Name == selectedName and grabbed < amount then
+			if item:IsA("Tool") then
+				item.Parent = backpack
+			elseif item:IsA("Accessory") or item:IsA("Hat") then
+				item.Parent = character
+			elseif item:IsA("BasePart") or item:IsA("Model") then
+				item:PivotTo(character:GetPivot())
+			else
+				item.Parent = character
+			end
+			grabbed += 1
+		end
+	end
+end)
+
+-- Initial load
+updateDropdown("")
+
